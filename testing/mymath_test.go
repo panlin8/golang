@@ -1,6 +1,7 @@
 package mymath
 
 import (
+	_ "net/http/pprof"
 	"testing"
 )
 

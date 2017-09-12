@@ -17,7 +17,15 @@ bench:
 	go test -v -run="none" -bench="BenchmarkSprintf"
 
 testall:
-	go test -bench="."
+	go test -bench=".*"
+
+# generate cpuprofile file
+cprof:
+	go test -run=none -bench=".*" -cpuprofile=cprof
+
+# generate hotspot map use pprof tool
+pprof:
+	go tool pprof --text testing.test cprof
 
 clean:
-	rm -rf $(TARGET)
+	rm -rf $(TARGET) testing.test cprof mprof
