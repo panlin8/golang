@@ -5,7 +5,7 @@ import (
 	"github.com/jolestar/go-commons-pool"
 	"log"
 	"math"
-	"reflect"
+	_ "reflect"
 	"time"
 )
 
@@ -70,6 +70,7 @@ var config *pool.ObjectPoolConfig = &pool.ObjectPoolConfig{
 	EvictionPolicyName:             "github.com/jolestar/go-commons-pool/DefaultEvictionPolicy"}
 
 func main() {
+	// no use defalut config
 	opool := pool.NewObjectPool(new(MyObjectFactory), config)
 
 	for i := 0; i < 10; i++ {
@@ -82,8 +83,8 @@ func main() {
 
 	obj, _ := opool.BorrowObject()
 
-	fmt.Println(reflect.TypeOf(obj))
-	fmt.Println(obj.(*MyPoolObject).Name)
+	//	fmt.Println(reflect.TypeOf(obj))
+	//	fmt.Println(obj.(*MyPoolObject).Name)
 
 	for i := 0; i < 5; i++ {
 		PoolInfo(opool)
