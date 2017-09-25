@@ -2,9 +2,15 @@ package main
 
 import (
 	"fmt"
+	elog "github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/p2p/nat"
 	"log"
 	"net/http"
+	"os"
+)
+
+const (
+	layer int = 4 //debug
 )
 
 type database map[string]int
@@ -16,6 +22,8 @@ func (db database) list(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	elog.Root().SetHandler(elog.LvlFilterHandler(elog.Lvl(layer), elog.StreamHandler(os.Stderr, elog.TerminalFormat(true))))
+
 	var nat_mode nat.Interface = nat.Any()
 
 	nat_quit := make(chan struct{})
@@ -25,7 +33,7 @@ func main() {
 
 	go func() {
 		fmt.Println("map start...")
-		nat.Map(nat_mode, nat_quit, "tcp", 8222, 8888, "panlin-nat")
+		nat.Map(nat_mode, nat_quit, "tcp", 8888, 8888, "panlin-nat")
 		fmt.Println("map end...")
 	}()
 
