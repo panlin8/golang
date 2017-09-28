@@ -52,9 +52,17 @@ func main() {
 	fmt.Printf("info: %#v\n", info)
 
 	//update
-	info, err = col.UpdateAll(bson.M{"name": "panlin"}, &Person{Name: "panxinwei", Age: 8})
+	info, err = col.UpdateAll(bson.M{"name": "panxinwei"}, bson.M{"$set": bson.M{"name": "panlin"}})
 	if err != nil {
 		fmt.Println("[ERROR] update all failed!")
+		return
+	}
+
+	fmt.Printf("info: %#v\n", info)
+
+	info, err = col.RemoveAll(bson.M{"usr_name": "liyuan"})
+	if err != nil {
+		fmt.Println("[ERROR] remove all failed!")
 		return
 	}
 
