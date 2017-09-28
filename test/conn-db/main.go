@@ -32,7 +32,7 @@ func main() {
 		return
 	}
 
-	//find
+	//find one
 	result := Person{}
 	err = col.Find(bson.M{"name": "liyuan"}).One(&result)
 	if err != nil {
@@ -40,7 +40,16 @@ func main() {
 		return
 	}
 
-	fmt.Printf("liyuan age: %d\n", result.Age)
+	//find Iter
+	iter := col.Find(bson.M{"name": "panlin"}).Iter()
+	for iter.Next(&result) {
+		if err != nil {
+			fmt.Println("[ERROR] name: panlin is not exist!")
+			return
+		}
+
+		fmt.Println("panlin age:", result.Age)
+	}
 
 	//remove
 	info, err := col.RemoveAll(bson.M{"name": "liyuan"})
