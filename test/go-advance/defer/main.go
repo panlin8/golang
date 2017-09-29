@@ -30,9 +30,9 @@ func fun3(input int) (result int) {
 }
 
 func fun4() (r int) {
-	defer func(r int) {
-		r = r + 5
-	}(r)
+	defer func(r *int) {
+		*r = *r + 5 //func inside r is value transmit    r != return r`
+	}(&r)
 	return 1
 }
 
