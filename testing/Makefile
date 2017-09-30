@@ -27,5 +27,11 @@ cprof:
 pprof:
 	go tool pprof --text testing.test cprof
 
+asm:
+	go build -gcflags -S $(SOURCE)
+
+escape:
+	go build -gcflags=-m -o $(TARGET) $(SOURCE)
+
 clean:
 	rm -rf $(TARGET) testing.test cprof mprof
